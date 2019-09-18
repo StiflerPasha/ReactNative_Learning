@@ -17,15 +17,25 @@ const App = () => {
 	  //setEnteredGoal('');
    };
 
+   const removeGoalHandler = (goalId) => {
+	  setCourseGoals(currentGoals => {
+		 return currentGoals.filter(goal => goal.id !== goalId);
+	  });
+   };
+
    return (
 	  <View style={ styles.screen }>
 		 <GoalInput onAddGoal={ addGoalHandler } />
 		 <FlatList
 			//change 'KEY to smth else e.g. ID'
-			keyExtractor={ (item, index) => item.id }
+			keyExtractor={ (item) => item.id }
 			data={ courseGoals }
 			renderItem={ itemData => (
-			   <GoalItem title={ itemData.item.value } />
+			   <GoalItem
+				  id={ itemData.item.id }
+				  title={ itemData.item.value }
+				  onDelete={ removeGoalHandler } />
+
 			) } />
 	  </View>
    );

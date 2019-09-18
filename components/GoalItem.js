@@ -1,10 +1,12 @@
 import React                                        from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
-const GoalItem = ({ title, onDelete }) => {
+const GoalItem = ({ id, title, onDelete }) => {
    return (
-      // I can choose different types of 'Touchable...'
-	  <TouchableOpacity activeOpacity={ 0.8 } onPress={ onDelete }>
+	  // I can choose different types of 'Touchable...'
+	  <TouchableOpacity
+		 activeOpacity={ 0.8 }
+		 onPress={ () => onDelete(id) }>
 		 <View style={ styles.listItem }>
 			<Text>{ title }</Text>
 		 </View>
