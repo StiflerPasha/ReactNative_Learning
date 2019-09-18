@@ -1,10 +1,11 @@
-import React, { useState }            from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
-import GoalItem                       from './components/GoalItem';
-import GoalInput                      from './components/GoalInput';
+import React, { useState }                    from 'react';
+import { StyleSheet, View, Button, FlatList } from 'react-native';
+import GoalItem                               from './components/GoalItem';
+import GoalInput                              from './components/GoalInput';
 
 const App = () => {
    const [courseGoals, setCourseGoals] = useState([]);
+   const [isAddMode, setIsAddMode] = useState(false);
 
    const addGoalHandler = (goalTitle) => {
 	  if (goalTitle.trim()) {
@@ -13,6 +14,7 @@ const App = () => {
 			value: goalTitle,
 		 };
 		 setCourseGoals(currentGoals => [...currentGoals, newGoal]);
+		 setIsAddMode(false);
 	  }
 	  //setEnteredGoal('');
    };
@@ -25,7 +27,10 @@ const App = () => {
 
    return (
 	  <View style={ styles.screen }>
-		 <GoalInput onAddGoal={ addGoalHandler } />
+		 <Button title="Add New Goal" onPress={ () => setIsAddMode(true) } />
+		 <GoalInput visible={ isAddMode }
+					onAddGoal={ addGoalHandler }
+					onCancel={ () => setIsAddMode(false) } />
 		 <FlatList
 			//change 'KEY to smth else e.g. ID'
 			keyExtractor={ (item) => item.id }
